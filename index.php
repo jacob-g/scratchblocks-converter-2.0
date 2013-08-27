@@ -48,6 +48,7 @@ if (isset($_POST['username'])) {
 				$text = str_replace('%d.listItem', '%n', $text);
 				$text = str_replace('%m.triggerSensor', '%m', $text);
 				$text = str_replace('%m.broadcast', '%m', $text);
+				$text = str_replace('%d.listDeleteItem', '%n', $text);
 				$dictionary[$selector] = $text;
 			}
 		}
@@ -78,7 +79,7 @@ if (isset($_POST['username'])) {
 					$blocktype = $block[0];
 					array_shift($block);
 					if (!isset($dictionary[$blocktype])) {
-						echo 'obsolete!';
+						echo parseblock($blocktype, $block) . "\n";
 					} else {
 						echo parseblock($dictionary[$blocktype], $block) . "\n";
 					}
@@ -108,7 +109,7 @@ if (isset($_POST['username'])) {
 		while (!$ok) {
 			$ok = true;
 			for ($i = 0; $i < strlen($text); $i++) {
-				if ($text{$i} == '%') {
+				if ($text{$i} == '%' && $i < strlen($text) - 1) {
 					$ok = false;
 					$part1 = substr($text, 0, $i);
 					$part2 = substr($text, $i + 2);
