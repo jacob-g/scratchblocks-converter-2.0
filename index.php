@@ -49,6 +49,7 @@ if (isset($_POST['username'])) {
 				$text = str_replace('%m.triggerSensor', '%m', $text);
 				$text = str_replace('%m.broadcast', '%m', $text);
 				$text = str_replace('%d.listDeleteItem', '%n', $text);
+				$text = str_replace('%m.touching', '%m', $text);
 				$dictionary[$selector] = $text;
 			}
 		}
@@ -101,6 +102,10 @@ if (isset($_POST['username'])) {
 				$text = $dictionary[$params[0]];
 				array_shift($params);
 			}
+		} else if ($text == 'contentsOfList:') {
+			return '(' . $params[0] . ')';
+		} else if ($text == 'readVariable') {
+			return '(' . $params[0] . ')';
 		} else {
 			$reporter = false;
 		}
