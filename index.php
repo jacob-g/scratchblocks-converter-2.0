@@ -1,4 +1,6 @@
 <?php
+header('Content-type: text/html; charset=utf-8');
+
 /*
 Procedure extraction tool
 FUNCTION: Extracting procedures from Scratch 2.0 backpacks and converting them to [scratchblocks] format
