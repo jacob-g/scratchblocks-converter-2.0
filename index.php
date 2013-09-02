@@ -64,6 +64,7 @@ if (isset($_POST['username'])) {
 	function parsescript($script, $level) {
 		global $dictionary, $cblocks;
 		if (sizeof($script)) {
+			//echo "\n";
 			foreach ($script as $block) {
 				showtabs($level);
 				if ($block[0] == 'procDef') {
@@ -116,12 +117,15 @@ if (isset($_POST['username'])) {
 		while (!$ok) {
 			$ok = true;
 			for ($i = 0; $i < strlen($text); $i++) {
-				if ($text{$i} == '%' && $i < strlen($text) - 1) {
+				if ($text{$i} == '%' && (strlen($text) > $i && in_array($text{$i + 1}, array('n','s','b','m'))) && $i < strlen($text) - 1) {
 					$ok = false;
 					$part1 = substr($text, 0, $i);
 					$part2 = substr($text, $i + 2);
 					$oldtext = $text;
 					$text = $part1;
+					if (!isset($params[$count])) {
+						print_r($params);
+					}
 					if (gettype($params[$count]) == 'array') {
 						$text .= parseblock('genericReporter', $params[$count]);
 						$text .= $part2;
